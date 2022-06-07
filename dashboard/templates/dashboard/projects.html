@@ -1,0 +1,67 @@
+{% extends 'dashboard/base.html' %}
+{% load crispy_forms_tags %}
+{% block style %}
+<style>
+    .second{
+       border-right: 2px solid #2BC671;
+   }
+   .second a{
+    color: #fff !important;
+   }
+table tr{
+    color: #fff;
+} 
+form input{
+    margin-bottom: 20px;
+}
+form textarea{
+    margin-bottom: 20px;
+}
+</style>
+{% endblock %}
+{% block body %}
+{% if page == 1%}
+<a href="{% url 'addProject' %}" class="btn btn-primary" style="margin: 30px; background-color: #F06A77; border: #F06A77;">Add projects</a>
+{% if not projects %}
+<div style="align-items: center;">
+<center>
+<img  class="center" src="../../static/panda.png" alt="" style="width: 500px; margin-bottom: 20px;">
+<p style="text-align: center; font-size: 26px;">No items to display</p>
+</center>
+</div>
+{% else %}
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Due</th>
+        <th>Estimated due</th>
+        <th style="text-align:center;">Edit</th>
+        <th style="text-align:center;">Delete</th>
+    </tr>
+{% for project in projects %}
+    <tr>
+        <td>{{project.title}}</td>
+        <td>{{project.description}}</td>
+        <td>{{project.due}}</td>
+        <td>{{project.estdue}}</td>
+        <td style="text-align:center;"><a href="{% url 'editProject' project.id %}"><img src="../../static/goto.png" alt="" class="icons"></a></td>
+        <td style="text-align:center;"><a href="{% url 'deleteproject' project.id %}"><img src="../../static/delete.png" alt="" class="icons"></a></td>
+    </tr>
+{% endfor %}
+</table>
+{% endif %}
+
+{% else %}
+<form action="" method="POST" style="padding: 10px 80px;">
+    {%csrf_token%}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-primary" value="Save project">
+</form>
+
+{% endif%}
+{% endblock %}
+{% block script %}
+
+{% endblock %}

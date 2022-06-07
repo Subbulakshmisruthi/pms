@@ -1,0 +1,67 @@
+{% extends 'dashboard/base.html' %}
+{% block style %}
+<style>
+    .glass{
+        padding: 40px;
+        text-align: center;
+        border-radius: 8px;
+        opacity: 0.7;
+        box-shadow: 0 2px 2px rgba(0,0,0,0.25), 
+              0 4px 4px rgba(0,0,0,0.20), 
+              0 8px 8px rgba(0,0,0,0.15), 
+              0 16px 16px rgba(0,0,0,0.10),
+              0 32px 32px rgba(0,0,0,0.05);
+    }
+    .span{
+        font-size: 40px;
+        text-align: center;
+        
+    }
+   .first{
+       border-right: 2px solid #2BC671;
+   }
+   .first a{
+    color: #fff !important;
+   }
+</style>
+{% endblock %}
+{% block body %}
+    <div class="row" style="margin-top: 20px; margin-left: 10px;">
+        <div class="col-md-3 glass" style="background-color: #2B2D2E;">
+           Ongoing Projects
+           <br>
+           <div class="span">{{projects_count}}</div>
+        </div>
+        <div class="col-md-1" style="padding: 40px;"></div>
+        <div class="col-md-3 glass" style="background-color: #2B2D2E;">
+           To dos
+           <br>
+           <div class="span">{{task_count}}</div>
+        </div>
+        <div class="col-md-1 style="padding: 40px;""></div>
+        <div class="col-md-3 glass" style="background-color: #2B2D2E;">
+           Deadlines
+           <br>
+           <div class="span">4</div>
+        </div>
+
+    </div>
+    <div class="row" style="margin: 10px 20px; margin-bottom: 10px;">
+        <p>Recents</p>
+        {% if not projects %}
+<div style="align-items: center;">
+<center>
+<img  class="center" src="../../static/panda.png" alt="" style="width: 500px;">
+<p style="text-align: center; font-size: 26px;">No items to display</p>
+</center>
+</div>
+{% else %}
+        <ul>
+            {% for project in projects %}
+            <li style="padding: 10px; border-bottom: 1px solid #26282A;">{{project.title}} <a href="{% url 'editProject' project.id %}"><img src="../../static/goto.png" alt="" class="icons"></a> </li>
+            {% endfor %}
+        </ul>
+        {%endif%}
+    </div>
+
+{% endblock %}

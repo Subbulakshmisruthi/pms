@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300&display=swap" rel="stylesheet">
+    <title>Dashboard | pms</title>
+    {% block style %}
+
+    {% endblock %}
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: #161819;
+            color: #eee;
+            font-family: 'Poppins', sans-serif;
+        }
+        a{
+            color: #ddd !important;
+        }
+        a:hover{
+            color: #fff !important;
+        }
+        ul li{
+            margin: 15px;
+            list-style-type:none;
+        }
+        ul li a{
+            text-decoration: none;
+        }
+        .custom-ul{
+            padding: 0;
+        }
+        .custom-ul li{
+            padding: 0;
+            margin-bottom: 50px;
+        }
+        .custom-ul li{
+            padding: 0;
+            display: block;
+            margin-bottom: 50px;
+            
+        }
+        .sidebar{
+            background-color: #1F2123;
+            border: 1px solid #26282A;
+        }
+        .icons{
+            width: 20px;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding: 15px; background-color:#1F2123 !important;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <a class="navbar-brand" href="#">Projectify</a>
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <!-- <li class="nav-item active">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Disabled</a>
+            </li> -->
+            <li class="nav-item" style="background-color: #F06A77; border-radius: 10px; margin-left: 160px;">
+                <a class="nav-link" href="{% url 'projects' %}"><img src="../../static/add.png" alt="" class="icons"> Create new</a>
+              </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="display: inline-block; background-color: #2B2D2E; color: #fff; width: 300px;">
+            
+          </form>
+        </div>
+      </nav>
+      <div style="overflow: hidden;">
+          <div class="row">
+              <div class="col-md-2 sidebar">
+               <ul class="custom-ul">
+                   <li style="background-color: #2B2D2E; border-radius:10px; padding: 8px;" ><span style="color: #2BC671;">@ </span> {{ request.user.username }}</li>
+                   <li class="first"><a href="{% url 'dashboard' %}"><img src="../../static/home.png" alt="" class="icons"> Home</a></li>
+                   <li class="second"><a href="{% url 'projects' %}"><img src="../../static/projects.png" alt="" class="icons"> Your Projects</a></li>
+                   <li class="third"><a href="{% url 'tasks' %}"><img src="../../static/tasks.png" alt="" class="icons"> Your tasks</a></li>
+                   <li class="fourth"><a href="{% url 'analytics' %}"><img src="../../static/analytics.png" alt="" class="icons"> Your Progress</a></li>
+                   <li class="fifth"><a href="{% url 'settings' %}"><img src="../../static/setting.png" alt="" class="icons"> Settings</a></li>
+                   <li class="sixth"><a href="{% url 'projects' %}"><img src="../../static/support.png" alt="" class="icons"> Support</a></li>
+                   <li style="margin-bottom: 115px;"><a href="{% url 'logout' %}"><img src="../../static/logout.png" alt="" class="icons"> Sign out</a></li>
+               </ul>
+              </div>
+          
+            <div class="col-md-10">
+                {% block body %}
+            
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    {% block script %}
+
+    {% endblock %}
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            document.querySelector('#div_id_user').style.display="none";
+            document.querySelector('#id_due').type="datetime-local";
+            document.querySelector('#id_estdue').type="datetime-local";
+        })
+    </script>
+</body>
+</html>

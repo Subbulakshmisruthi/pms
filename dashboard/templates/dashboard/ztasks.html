@@ -1,0 +1,56 @@
+{% extends 'dashboard/base.html' %}
+{% load crispy_forms_tags %}
+{% block style %}
+<style>
+    .third{
+       border-right: 2px solid #2BC671;
+   }
+   .third a{
+    color: #fff !important;
+   }
+   .customcard{
+       height: 150px;
+       text-align: center;
+       border: 1px solid #777;
+       border-radius: 20px;
+       position: relative;
+       margin-bottom: 20px;
+       overflow: hidden;
+   }
+</style>
+{% endblock %}
+{% block body %}
+{% if page == 1%}
+<a href="{% url 'addTask' %}" class="btn btn-primary" style="margin: 30px; background-color: #F06A77; border: #F06A77;">Add To do</a>
+{% if not tasks %}
+<br>
+<div style="align-items: center;">
+<center>
+<img  class="center" src="../../static/panda.png" alt="" style="width: 500px; margin-bottom: 20px;">
+<p style="text-align: center; font-size: 26px;">No items to display</p>
+</center>
+</div>
+{% else %}
+<div class="row" style="padding: 10px;">
+{% for task in tasks %}
+
+    <div class="col-md-4" style="padding:0px 20px;">
+        <div class="customcard">
+       <p style="top: 50%; position: absolute; left: 50%; transform: translate(-50%,-50%);">{{task.title}}</p>
+       <a href="{% url 'editTask' task.id %}"><img src="../../static/edit.png" alt="" style="width: 20px; margin: 10px;"></a>
+       <a href="{% url 'deletetask' task.id %}"><img src="../../static/delete.png" alt="" style="width: 20px; margin: 10px;"></a>
+    </div>
+</div>
+{% endfor %}
+</div>
+{% endif %}
+{% else %}
+<form action="" method="POST" style="padding: 10px 80px;">
+    {%csrf_token%}
+    {{ form|crispy }}
+    <br>
+    <input type="submit" class="btn btn-primary" value="Save Tasks">
+</form>
+
+{% endif %}
+{% endblock %}
